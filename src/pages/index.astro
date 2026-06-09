@@ -1,0 +1,420 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const paper = {
+  title: 'BLOSSOM',
+  subtitle: 'Block-wise Federated Learning Over Shared and Sparse Observed Modalities',
+  venue: 'IJCNN 2026',
+  authors: [
+    { name: 'Pranav M R', affiliations: [1], url: '#', equal: true },
+    { name: 'Jayant Chandwani', affiliations: [1], url: '#', equal: true },
+    { name: 'Ahmed M. Abdelmoniem', affiliations: [2], url: '#', equal: false},
+    { name: 'Arnab K. Paul', affiliations: [1], url: '#', equal: false},
+  ],
+  affiliations: [
+    { id: 1, name: 'DaSH Lab, BITS Pilani K. K. Birla Goa Campus' },
+    { id: 2, name: 'Queen Mary University of London' },
+  ],
+  links: {
+    paper: 'https://arxiv.org/abs/2603.27552',
+    // arxiv: 'https://arxiv.org/abs/2603.27552',
+    code: 'https://github.com/DaSH-Lab-CSIS/blossom',
+    bibtex: '#citation',
+  },
+  bibtex: `@inproceedings{blossom2026,
+  title     = {BLOSSOM: Block-wise Federated Learning Over Shared and Sparse Observed Modalities},
+  author    = {Pranav M R and Jayant Chandwani and Ahmed M. Abdelmoniem and Arnab K. Paul},
+  booktitle = {International Joint Conference on Neural Networks (IJCNN)},
+  year      = {2026}
+}`,
+};
+---
+
+<Layout title={`${paper.title}: ${paper.subtitle}`}>
+  <!-- Soft blossom backdrop -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none fixed inset-0 -z-10 bg-cream-50"
+  >
+    <div class="absolute inset-x-0 top-0 h-[70vh] bg-[radial-gradient(ellipse_at_top,var(--color-blossom-100),transparent_65%)]"></div>
+    <div class="absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-blossom-200/40 blur-3xl"></div>
+    <div class="absolute -right-24 top-2/3 h-80 w-80 rounded-full bg-blossom-100/60 blur-3xl"></div>
+  </div>
+
+  <!-- Top nav -->
+  <header class="sticky top-0 z-30 backdrop-blur bg-cream-50/80 border-b border-blossom-100">
+    <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-3 text-sm">
+      <a href={base} class="flex items-center gap-2 font-semibold tracking-tight text-blossom-700">
+        <img src={`${base}blossom.svg`} alt="" aria-hidden="true" class="size-6" />
+        <span>BLOSSOM</span>
+      </a>
+      <ul class="hidden gap-6 sm:flex text-[#5a4340]">
+        <li><a class="hover:text-blossom-600 transition-colors" href="#abstract">Abstract</a></li>
+        <li><a class="hover:text-blossom-600 transition-colors" href="#problem">Problem</a></li>
+        <li><a class="hover:text-blossom-600 transition-colors" href="#architecture">Method</a></li>
+        <li><a class="hover:text-blossom-600 transition-colors" href="#setup">Setup</a></li>
+        <li><a class="hover:text-blossom-600 transition-colors" href="#results">Results</a></li>
+        <li><a class="hover:text-blossom-600 transition-colors" href="#citation">Citation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-6">
+    <!-- HERO -->
+    <section class="pt-14 pb-12 sm:pt-20 sm:pb-16 text-center">
+      <p class="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-blossom-600">
+        {paper.venue}
+      </p>
+
+      <!-- BLOSSOM banner as the title -->
+      <h1 class="mx-auto max-w-3xl">
+        <span class="sr-only">{paper.title}</span>
+        <img
+          src={`${base}banner.png`}
+          alt="BLOSSOM"
+          class="mx-auto w-full max-w-2xl"
+        />
+      </h1>
+
+      <p class="mt-6 mx-auto max-w-3xl text-balance text-xl sm:text-2xl font-medium text-[#5a4340]" style="font-family: var(--font-serif);">
+        {paper.subtitle}
+      </p>
+
+      <!-- Authors -->
+      <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-base">
+        {paper.authors.map((a) => (
+          <li>
+            <a href={a.url} class="font-medium text-[#3a2a28] hover:text-blossom-600 transition-colors">
+              {a.name}
+              {a.equal && <sup class="text-blossom-600">*</sup>}
+              {a.affiliations.map((id) => (
+                <sup class="ml-0.5 text-[#8a6f6c]">{id}</sup>
+              ))}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <ul class="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-[#8a6f6c]">
+        {paper.affiliations.map((af) => (
+          <li><sup class="mr-0.5">{af.id}</sup>{af.name}</li>
+        ))}
+      </ul>
+      <p class="mt-1 text-xs text-[#a8908d]">* Equal contribution</p>
+
+      <!-- Action buttons -->
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href={paper.links.paper}
+          class="group inline-flex items-center gap-2 rounded-full bg-blossom-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm shadow-blossom-300/50 transition hover:bg-blossom-600 hover:shadow-md"
+        >
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          Paper
+        </a>
+        <!-- <a
+          href={paper.links.arxiv} 
+          class="inline-flex items-center gap-2 rounded-full border border-blossom-200 bg-white px-5 py-2.5 text-sm font-medium text-[#3a2a28] shadow-sm transition hover:bg-blossom-50 hover:border-blossom-300"
+        > -->
+          <!-- arXiv -->
+        </a>
+        <a
+          href={paper.links.code}
+          class="inline-flex items-center gap-2 rounded-full border border-blossom-200 bg-white px-5 py-2.5 text-sm font-medium text-[#3a2a28] shadow-sm transition hover:bg-blossom-50 hover:border-blossom-300"
+        >
+          <svg class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.94c.57.1.78-.25.78-.55v-1.95c-3.2.7-3.88-1.54-3.88-1.54-.52-1.32-1.28-1.67-1.28-1.67-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.78 2.7 1.27 3.36.97.1-.75.4-1.27.73-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.19 1.18a11 11 0 0 1 5.81 0c2.22-1.5 3.19-1.18 3.19-1.18.63 1.59.23 2.77.12 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.35.78 1.05.78 2.12v3.14c0 .31.21.66.79.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+          Code
+        </a>
+        <a
+          href={paper.links.bibtex}
+          class="inline-flex items-center gap-2 rounded-full border border-blossom-200 bg-white px-5 py-2.5 text-sm font-medium text-[#3a2a28] shadow-sm transition hover:bg-blossom-50 hover:border-blossom-300"
+        >
+          BibTeX
+        </a>
+      </div>
+    </section>
+
+    <div class="petal-divider mb-16">
+      <img src={`${base}blossom.svg`} alt="" aria-hidden="true" class="size-8 opacity-90" />
+    </div>
+
+    <!-- ABSTRACT -->
+    <section id="abstract" class="reveal mb-20 scroll-mt-24">
+      <h2 class="mb-5 text-2xl font-semibold tracking-tight text-blossom-700">Abstract</h2>
+      <p class="text-lg leading-relaxed text-[#3a2a28]" style="font-family: var(--font-serif);">
+        Multimodal federated learning is essential for real-world applications such as autonomous
+        systems and healthcare, where data is distributed across heterogeneous clients with varying
+        and often missing modalities. However, most existing FL approaches assume uniform modality
+        availability, limiting their applicability in practice. We introduce <strong class="text-blossom-700">BLOSSOM</strong>,
+        a task-agnostic framework for multimodal FL designed to operate under shared and sparsely
+        observed modality conditions. BLOSSOM supports clients with arbitrary modality subsets and
+        enables flexible sharing of model components. To address client and task heterogeneity, we
+        propose a <em>block-wise aggregation</em> strategy that selectively aggregates shared
+        components while keeping task-specific blocks private, enabling partial personalization.
+        Our results show that block-wise personalization significantly improves performance,
+        particularly in settings with severe modality sparsity. In modality-incomplete scenarios,
+        BLOSSOM achieves an average performance gain of <strong class="text-blossom-700">18.7%</strong>
+        over full-model aggregation, while in modality-exclusive settings the gain increases to
+        <strong class="text-blossom-700">37.7%</strong>.
+      </p>
+    </section>
+
+    <!-- PROBLEM -->
+    <section id="problem" class="reveal mb-20 scroll-mt-24">
+      <h2 class="mb-5 text-2xl font-semibold tracking-tight text-blossom-700">The Problem</h2>
+      <p class="mb-6 text-base leading-relaxed text-[#3a2a28]">
+        Real-world multimodal clients rarely share the same sensors. Most federated learning
+        methods assume every client observes every modality, or model only mild sample-level
+        corruption. BLOSSOM instead targets <em>structural</em> modality missingness, where clients
+        lack entire modalities. We organize this heterogeneity into three regimes of increasing
+        difficulty:
+      </p>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="rounded-3xl border border-blossom-100 bg-white p-5 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-sm font-semibold text-blossom-700">Modality-complete</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            Every client observes all modalities. Reduces to a standard federated setup
+            (e.g. FedAvg) — our reference point.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-blossom-100 bg-white p-5 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-sm font-semibold text-blossom-700">Modality-incomplete</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            Some modalities are missing for subsets of clients, while others still hold the
+            full set — a partial overlap across the federation.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-blossom-100 bg-white p-5 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-sm font-semibold text-blossom-700">Modality-exclusive</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            Clients hold entirely disjoint modality sets with no overlap — the hardest case,
+            where naïve aggregation breaks down.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- METHOD / ARCHITECTURE -->
+    <section id="architecture" class="reveal mb-20 scroll-mt-24">
+      <h2 class="mb-5 text-2xl font-semibold tracking-tight text-blossom-700">Method</h2>
+      <p class="text-base leading-relaxed text-[#3a2a28]">
+        BLOSSOM uses a <strong class="text-blossom-700">late-fusion</strong> architecture split
+        into three blocks: modality-specific <strong class="text-blossom-700">encoders</strong>,
+        a <strong class="text-blossom-700">fusion</strong> module that integrates whichever
+        modalities a client observes (missing ones are zeroed out before fusion), and a task
+        <strong class="text-blossom-700">head</strong> that produces the prediction. Rather than
+        averaging the whole model as one unit, the server aggregates each block independently
+        according to block type and modality availability — enabling partial personalization.
+      </p>
+
+      <figure class="mt-6 overflow-hidden rounded-3xl border border-blossom-100 bg-white shadow-sm shadow-blossom-100/60">
+        <img
+          src={`${base}architecture.png`}
+          alt="BLOSSOM block-wise aggregation under its three modes"
+          class="w-full"
+        />
+        <figcaption class="border-t border-blossom-100 bg-cream-50 px-5 py-3 text-sm text-[#5a4340]">
+          <strong class="text-blossom-700">Figure 1.</strong>
+          The BLOSSOM framework under its three block-wise aggregation modes. Modality encoders
+          are aggregated only across clients that own the corresponding modality; the fusion and
+          head blocks are shared or kept private depending on the mode.
+        </figcaption>
+      </figure>
+
+      <h3 class="mt-10 mb-4 text-lg font-semibold text-blossom-700">Three aggregation modes</h3>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="rounded-3xl border border-blossom-100 bg-white p-5 shadow-sm shadow-blossom-100/60">
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blossom-600">FM</p>
+          <h4 class="mt-1 text-sm font-semibold text-[#3a2a28]">Full-Model Aggregation</h4>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            Encoders, fusion, and head are all aggregated. Matches standard multimodal FL and
+            serves as the primary baseline.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-blossom-100 bg-white p-5 shadow-sm shadow-blossom-100/60">
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blossom-600">PH</p>
+          <h4 class="mt-1 text-sm font-semibold text-[#3a2a28]">Private Head</h4>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            Encoders and fusion are shared, but each client keeps a private prediction head —
+            adapting to local label distributions.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-blossom-100 bg-white p-5 shadow-sm shadow-blossom-100/60">
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blossom-600">PHF</p>
+          <h4 class="mt-1 text-sm font-semibold text-[#3a2a28]">Private Head + Fusion</h4>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            Only modality encoders are shared; both fusion and head stay private. Most robust
+            under severe modality sparsity.
+          </p>
+        </div>
+      </div>
+
+      <p class="mt-6 text-base leading-relaxed text-[#3a2a28]">
+        Each mode is evaluated with two fusion operators — <strong class="text-blossom-700">ConcatFusion</strong>
+        (concatenate embeddings, then project) and <strong class="text-blossom-700">AttentionFusion</strong>
+        (learned, modality-dependent weighting). The block-wise decomposition is optimizer-agnostic:
+        it composes with FedAvg, FedAdam, or FedYogi without changing the architecture.
+      </p>
+    </section>
+
+    <!-- EXPERIMENTAL SETUP -->
+    <section id="setup" class="reveal mb-20 scroll-mt-24">
+      <h2 class="mb-5 text-2xl font-semibold tracking-tight text-blossom-700">Experimental Setup</h2>
+      <p class="mb-6 text-base leading-relaxed text-[#3a2a28]">
+        BLOSSOM is built on the <strong class="text-blossom-700">Flower</strong> FL framework with
+        <strong class="text-blossom-700">Hydra</strong> configuration management. All experiments use
+        10 clients, 60 communication rounds, and 1 local epoch per round. Non-IID label skew is
+        induced with a Dirichlet partition (α = 0.5). Missing modalities are denoted
+        <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">a–b–c</code> — clients with modality 1
+        only, modality 2 only, and both — so <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">0–0–10</code>
+        is 0% missing, <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">3–3–4</code> is 30%, and
+        <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">5–5–0</code> is 50% (modality-exclusive).
+      </p>
+      <div class="overflow-x-auto rounded-3xl border border-blossom-100 bg-white shadow-sm shadow-blossom-100/60">
+        <table class="w-full border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-blossom-100 bg-cream-50 text-blossom-700">
+              <th class="px-5 py-3 font-semibold">Task</th>
+              <th class="px-5 py-3 font-semibold">Datasets</th>
+              <th class="px-5 py-3 font-semibold">Modalities</th>
+              <th class="px-5 py-3 font-semibold">Metric</th>
+            </tr>
+          </thead>
+          <tbody class="text-[#3a2a28]">
+            <tr class="border-b border-blossom-100/60">
+              <td class="px-5 py-3 font-medium">Human Activity Recognition</td>
+              <td class="px-5 py-3">KU-HAR, UCI-HAR</td>
+              <td class="px-5 py-3">Accelerometer, Gyroscope</td>
+              <td class="px-5 py-3">F1</td>
+            </tr>
+            <tr class="border-b border-blossom-100/60">
+              <td class="px-5 py-3 font-medium">Healthcare</td>
+              <td class="px-5 py-3">PTB-XL</td>
+              <td class="px-5 py-3">ECG leads (I–aVF, V1–V6)</td>
+              <td class="px-5 py-3">F1</td>
+            </tr>
+            <tr class="border-b border-blossom-100/60">
+              <td class="px-5 py-3 font-medium">Multimedia</td>
+              <td class="px-5 py-3">AV-MNIST</td>
+              <td class="px-5 py-3">Image, Audio</td>
+              <td class="px-5 py-3">Accuracy</td>
+            </tr>
+            <tr>
+              <td class="px-5 py-3 font-medium">Emotion Recognition</td>
+              <td class="px-5 py-3">MELD, IEMOCAP</td>
+              <td class="px-5 py-3">Audio, Text</td>
+              <td class="px-5 py-3">Accuracy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="reveal mb-20 scroll-mt-24">
+      <h2 class="mb-5 text-2xl font-semibold tracking-tight text-blossom-700">Results</h2>
+      <p class="mb-6 text-base leading-relaxed text-[#3a2a28]">
+        Across all experiments, block-wise personalization gives an average gain of
+        <strong class="text-blossom-700">19.8%</strong> over full-model aggregation, and the
+        benefit grows precisely where the problem is hardest.
+      </p>
+
+      <!-- Headline metrics -->
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="rounded-3xl border border-blossom-100 bg-white p-6 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-blossom-600">Modality-incomplete (30%)</h3>
+          <p class="mt-2 text-4xl font-bold tracking-tight text-[#3a2a28]">+18.7<span class="text-blossom-500">%</span></p>
+          <p class="mt-1 text-sm text-[#7a625f]">avg. personalization gain over full-model aggregation</p>
+        </div>
+        <div class="rounded-3xl border border-blossom-100 bg-white p-6 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-blossom-600">Modality-exclusive (50%)</h3>
+          <p class="mt-2 text-4xl font-bold tracking-tight text-[#3a2a28]">+37.7<span class="text-blossom-500">%</span></p>
+          <p class="mt-1 text-sm text-[#7a625f]">gain in the most challenging, disjoint-modality setting</p>
+        </div>
+      </div>
+
+      <!-- Key findings -->
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-3xl border border-blossom-100 bg-cream-50/60 p-6 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-sm font-semibold text-blossom-700">Sparsity drives the gain</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            Personalization gain rises from <strong>18.7%</strong> at 30% missing to
+            <strong>37.7%</strong> at 50% missing — the more modalities are absent, the more
+            block-wise sharing helps.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-blossom-100 bg-cream-50/60 p-6 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-sm font-semibold text-blossom-700">Robust to label skew</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            Under non-IID label heterogeneity the average gain reaches <strong>25.8%</strong>,
+            versus <strong>13.7%</strong> in the IID case — personalization compounds across both
+            kinds of heterogeneity.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-blossom-100 bg-cream-50/60 p-6 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-sm font-semibold text-blossom-700">Personalize the fusion too</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            PHF (private head + fusion) beats PH on average (<strong>18.8%</strong> vs
+            <strong>14.9%</strong>), and the gap widens with learned AttentionFusion — making PHF a
+            robust default.
+          </p>
+        </div>
+        <div class="rounded-3xl border border-blossom-100 bg-cream-50/60 p-6 shadow-sm shadow-blossom-100/60">
+          <h3 class="text-sm font-semibold text-blossom-700">Biggest wins where no modality suffices</h3>
+          <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
+            On modality-insufficient tasks, personalizing the fusion is critical — average gains of
+            <strong>80%</strong> on KU-HAR and <strong>73%</strong> on PTB-XL, where a single
+            sensor stream cannot solve the task.
+          </p>
+        </div>
+      </div>
+
+      <p class="mt-8 text-base leading-relaxed text-[#3a2a28]">
+        BLOSSOM also helps <em>modality-incomplete clients contribute positively</em> to the global
+        model, and shows lower relative degradation than the state-of-the-art
+        <strong class="text-blossom-700">FedMultimodal</strong> benchmark under matched
+        missing-modality rates — despite operating in the harder structural-missingness regime.
+      </p>
+    </section>
+
+    <!-- CITATION -->
+    <section id="citation" class="reveal mb-20 scroll-mt-24">
+      <div class="flex items-center justify-between gap-4">
+        <h2 class="text-2xl font-semibold tracking-tight text-blossom-700">Citation</h2>
+        <button
+          id="copy-bib"
+          class="inline-flex items-center gap-2 rounded-full border border-blossom-200 bg-white px-3 py-1.5 text-sm font-medium text-[#3a2a28] transition hover:bg-blossom-50 hover:border-blossom-300"
+        >
+          <span id="copy-bib-label">Copy</span>
+        </button>
+      </div>
+      <pre id="bib" class="mt-4 overflow-x-auto rounded-3xl border border-blossom-100 bg-cream-100 p-5 text-sm leading-relaxed text-[#3a2a28] shadow-sm shadow-blossom-100/60"><code class="font-mono">{paper.bibtex}</code></pre>
+    </section>
+  </main>
+
+  <footer class="border-t border-blossom-100 py-10 text-center text-sm text-[#8a6f6c]">
+    <p class="flex items-center justify-center gap-2">
+      <img src={`${base}blossom.svg`} alt="" aria-hidden="true" class="size-5" />
+      <span>&copy; {new Date().getFullYear()} BLOSSOM authors.</span>
+      <span>Page source on
+        <a href="https://github.com/DaSH-Lab-CSIS/blossom" class="underline decoration-blossom-300 underline-offset-2 hover:text-blossom-600">GitHub</a>.
+      </span>
+    </p>
+  </footer>
+
+  <script is:inline>
+    const btn = document.getElementById('copy-bib');
+    const label = document.getElementById('copy-bib-label');
+    const pre = document.getElementById('bib');
+    btn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        label.textContent = 'Copied';
+        setTimeout(() => (label.textContent = 'Copy'), 1500);
+      } catch {
+        label.textContent = 'Press ⌘C';
+      }
+    });
+  </script>
+</Layout>
