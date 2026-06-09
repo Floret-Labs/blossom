@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://floret-labs.github.io/blossom/
 export default defineConfig({
   site: 'https://floret-labs.github.io',
-  base: '/blossom',
+  base: '/blossom/',
   vite: {
     plugins: [tailwindcss()],
   },
