@@ -176,20 +176,20 @@ const paper = {
           <h3 class="text-sm font-semibold text-blossom-700">Modality-complete</h3>
           <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
             Every client observes all modalities. Reduces to a standard federated setup
-            (e.g. FedAvg) — our reference point.
+            (e.g. FedAvg), our reference point.
           </p>
         </div>
         <div class="rounded-3xl border border-blossom-100 bg-white p-5 shadow-sm shadow-blossom-100/60">
           <h3 class="text-sm font-semibold text-blossom-700">Modality-incomplete</h3>
           <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
             Some modalities are missing for subsets of clients, while others still hold the
-            full set — a partial overlap across the federation.
+            full set, creating a partial overlap across the federation.
           </p>
         </div>
         <div class="rounded-3xl border border-blossom-100 bg-white p-5 shadow-sm shadow-blossom-100/60">
           <h3 class="text-sm font-semibold text-blossom-700">Modality-exclusive</h3>
           <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
-            Clients hold entirely disjoint modality sets with no overlap — the hardest case,
+            Clients hold entirely disjoint modality sets with no overlap, which is the hardest case,
             where naïve aggregation breaks down.
           </p>
         </div>
@@ -206,7 +206,7 @@ const paper = {
         modalities a client observes (missing ones are zeroed out before fusion), and a task
         <strong class="text-blossom-700">head</strong> that produces the prediction. Rather than
         averaging the whole model as one unit, the server aggregates each block independently
-        according to block type and modality availability — enabling partial personalization.
+        according to block type and modality availability, enabling partial personalization.
       </p>
 
       <figure class="mt-6 overflow-hidden rounded-3xl border border-blossom-100 bg-white shadow-sm shadow-blossom-100/60">
@@ -237,7 +237,7 @@ const paper = {
           <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blossom-600">PH</p>
           <h4 class="mt-1 text-sm font-semibold text-[#3a2a28]">Private Head</h4>
           <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
-            Encoders and fusion are shared, but each client keeps a private prediction head —
+            Encoders and fusion are shared, but each client keeps a private prediction head,
             adapting to local label distributions.
           </p>
         </div>
@@ -252,7 +252,7 @@ const paper = {
       </div>
 
       <p class="mt-6 text-base leading-relaxed text-[#3a2a28]">
-        Each mode is evaluated with two fusion operators — <strong class="text-blossom-700">ConcatFusion</strong>
+        Each mode is evaluated with two fusion operators, <strong class="text-blossom-700">ConcatFusion</strong>
         (concatenate embeddings, then project) and <strong class="text-blossom-700">AttentionFusion</strong>
         (learned, modality-dependent weighting). The block-wise decomposition is optimizer-agnostic:
         it composes with FedAvg, FedAdam, or FedYogi without changing the architecture.
@@ -267,8 +267,8 @@ const paper = {
         <strong class="text-blossom-700">Hydra</strong> configuration management. All experiments use
         10 clients, 60 communication rounds, and 1 local epoch per round. Non-IID label skew is
         induced with a Dirichlet partition (α = 0.5). Missing modalities are denoted
-        <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">a–b–c</code> — clients with modality 1
-        only, modality 2 only, and both — so <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">0–0–10</code>
+        <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">a–b–c</code>, meaning clients with modality 1
+        only, modality 2 only, and both, so <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">0–0–10</code>
         is 0% missing, <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">3–3–4</code> is 30%, and
         <code class="rounded bg-cream-100 px-1.5 py-0.5 text-sm">5–5–0</code> is 50% (modality-exclusive).
       </p>
@@ -341,7 +341,7 @@ const paper = {
           <h3 class="text-sm font-semibold text-blossom-700">Sparsity drives the gain</h3>
           <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
             Personalization gain rises from <strong>18.7%</strong> at 30% missing to
-            <strong>37.7%</strong> at 50% missing — the more modalities are absent, the more
+            <strong>37.7%</strong> at 50% missing, so the more modalities are absent, the more
             block-wise sharing helps.
           </p>
         </div>
@@ -349,7 +349,7 @@ const paper = {
           <h3 class="text-sm font-semibold text-blossom-700">Robust to label skew</h3>
           <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
             Under non-IID label heterogeneity the average gain reaches <strong>25.8%</strong>,
-            versus <strong>13.7%</strong> in the IID case — personalization compounds across both
+            versus <strong>13.7%</strong> in the IID case, so personalization compounds across both
             kinds of heterogeneity.
           </p>
         </div>
@@ -357,14 +357,14 @@ const paper = {
           <h3 class="text-sm font-semibold text-blossom-700">Personalize the fusion too</h3>
           <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
             PHF (private head + fusion) beats PH on average (<strong>18.8%</strong> vs
-            <strong>14.9%</strong>), and the gap widens with learned AttentionFusion — making PHF a
+            <strong>14.9%</strong>), and the gap widens with learned AttentionFusion, making PHF a
             robust default.
           </p>
         </div>
         <div class="rounded-3xl border border-blossom-100 bg-cream-50/60 p-6 shadow-sm shadow-blossom-100/60">
           <h3 class="text-sm font-semibold text-blossom-700">Biggest wins where no modality suffices</h3>
           <p class="mt-2 text-sm leading-relaxed text-[#5a4340]">
-            On modality-insufficient tasks, personalizing the fusion is critical — average gains of
+            On modality-insufficient tasks, personalizing the fusion is critical, with average gains of
             <strong>80%</strong> on KU-HAR and <strong>73%</strong> on PTB-XL, where a single
             sensor stream cannot solve the task.
           </p>
@@ -375,7 +375,7 @@ const paper = {
         BLOSSOM also helps <em>modality-incomplete clients contribute positively</em> to the global
         model, and shows lower relative degradation than the state-of-the-art
         <strong class="text-blossom-700">FedMultimodal</strong> benchmark under matched
-        missing-modality rates — despite operating in the harder structural-missingness regime.
+        missing-modality rates, despite operating in the harder structural-missingness regime.
       </p>
     </section>
 
